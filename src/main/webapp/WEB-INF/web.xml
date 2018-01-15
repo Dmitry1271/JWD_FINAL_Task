@@ -1,0 +1,41 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <display-name>Archetype Created Web Application</display-name>
+    <servlet>
+        <servlet-name>FrontController</servlet-name>
+        <servlet-class>by.tr.web.controller.FrontController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>FrontController</servlet-name>
+        <url-pattern>/FrontController</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <display-name>TokenFilter</display-name>
+        <filter-name>TokenFilter</filter-name>
+        <filter-class>by.tr.web.controller.filter.TokenFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>TokenFilter</filter-name>
+        <url-pattern>/FrontController</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <display-name>Language</display-name>
+        <filter-name>LanguageFilter</filter-name>
+        <filter-class>by.tr.web.controller.filter.LanguageFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LanguageFilter</filter-name>
+        <url-pattern>/FrontController</url-pattern>
+    </filter-mapping>
+
+
+</web-app>
