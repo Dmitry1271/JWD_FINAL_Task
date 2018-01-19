@@ -20,15 +20,15 @@ public final class RegisterInfoValidator {
 
     public static boolean isValidData(List info) {
         ValidatorDirector validatorDirector = new ValidatorDirector();
-        boolean login = validatorDirector.takeValidator(ValidatorName.LOGIN).isValidData(info.get(LOGIN));
-        boolean email = validatorDirector.takeValidator(ValidatorName.EMAIL).isValidData(info.get(EMAIL));
-        boolean password = false;
+        boolean validLogin = validatorDirector.takeValidator(ValidatorName.LOGIN).isValidData(info.get(LOGIN));
+        boolean validEmail = validatorDirector.takeValidator(ValidatorName.EMAIL).isValidData(info.get(EMAIL));
+        boolean validPassword = false;
 
         if (info.get(PASSWORD).equals(info.get(CONFIRM_PASSWORD))) {
-            password = validatorDirector.takeValidator(ValidatorName.PASSWORD).isValidData(info.get(PASSWORD));
+            validPassword = validatorDirector.takeValidator(ValidatorName.PASSWORD).isValidData(info.get(PASSWORD));
         }
 
-        boolean phoneNumber = validatorDirector.takeValidator(ValidatorName.PHONE_NUMBER).isValidData(info.get(PHONE_NUMBER));
-        return login && email && password && phoneNumber;
+        boolean validPhoneNumber = validatorDirector.takeValidator(ValidatorName.PHONE_NUMBER).isValidData(info.get(PHONE_NUMBER));
+        return validLogin && validEmail && validPassword && validPhoneNumber;
     }
 }

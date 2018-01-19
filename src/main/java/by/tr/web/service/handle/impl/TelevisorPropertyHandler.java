@@ -3,6 +3,8 @@ package by.tr.web.service.handle.impl;
 import by.tr.web.service.handle.PropertyHandler;
 import by.tr.web.service.handle.constant.PropertyNameConstant;
 import by.tr.web.service.handle.util.NumericPropertyInfoValidator;
+import by.tr.web.service.valid.ValidatorDirector;
+import by.tr.web.service.valid.ValidatorName;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,8 +37,10 @@ public class TelevisorPropertyHandler implements PropertyHandler {
         numericProperties.add(allProperties.get(HEIGHT_EN));
         numericProperties.add(allProperties.get(WIDTH_RU));
         numericProperties.add(allProperties.get(HEIGHT_RU));
-        boolean quality = allProperties.get(QUALITY_EN) != null &&
-                allProperties.get(QUALITY_RU) != null;
-        return NumericPropertyInfoValidator.isValidData(numericProperties) && quality;
+
+        ValidatorDirector validatorDirector = new ValidatorDirector();
+        boolean validQuality = validatorDirector.takeValidator(ValidatorName.STRING).isValidData(allProperties.get(QUALITY_EN)) &&
+                validatorDirector.takeValidator(ValidatorName.STRING).isValidData(allProperties.get(QUALITY_RU));
+        return NumericPropertyInfoValidator.isValidData(numericProperties) && validQuality;
     }
 }

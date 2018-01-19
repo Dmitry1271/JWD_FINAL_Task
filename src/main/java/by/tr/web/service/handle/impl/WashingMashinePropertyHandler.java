@@ -3,6 +3,8 @@ package by.tr.web.service.handle.impl;
 import by.tr.web.service.handle.PropertyHandler;
 import by.tr.web.service.handle.constant.PropertyNameConstant;
 import by.tr.web.service.handle.util.NumericPropertyInfoValidator;
+import by.tr.web.service.valid.ValidatorDirector;
+import by.tr.web.service.valid.ValidatorName;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,8 +35,10 @@ public class WashingMashinePropertyHandler implements PropertyHandler {
 
     @Override
     public boolean isValidProperties(List allProperties) {
-        boolean color = allProperties.get(COLOR_EN) != null &&
-                allProperties.get(COLOR_RU) != null;
+        ValidatorDirector validatorDirector = new ValidatorDirector();
+        boolean validColor = validatorDirector.takeValidator(ValidatorName.STRING).isValidData(allProperties.get(COLOR_EN)) &&
+                validatorDirector.takeValidator(ValidatorName.STRING).isValidData(allProperties.get(COLOR_RU));
+
         List numericProperties = new ArrayList();
         numericProperties.add(allProperties.get(DEPTH_EN));
         numericProperties.add(allProperties.get(WIDTH_EN));
@@ -44,6 +48,6 @@ public class WashingMashinePropertyHandler implements PropertyHandler {
         numericProperties.add(allProperties.get(WIDTH_RU));
         numericProperties.add(allProperties.get(HEIGHT_RU));
         numericProperties.add(allProperties.get(VELOCITY_RU));
-        return NumericPropertyInfoValidator.isValidData(numericProperties) && color;
+        return NumericPropertyInfoValidator.isValidData(numericProperties) && validColor;
     }
 }

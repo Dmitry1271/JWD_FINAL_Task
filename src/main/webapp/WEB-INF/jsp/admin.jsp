@@ -113,7 +113,7 @@
 
 	  	  		<div class="col-lg-12 col-md-12 col-sm-12">
 					<h5 class="category-title">${h_description_en}</h5>
-					<textarea class="property-input" name="description" placeholder="${input_description}"></textarea>
+					<textarea class="property-input" name="description_en" placeholder="${input_description}"></textarea>
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12">
 					<h5 class="category-title">${h_description_ru}</h5>

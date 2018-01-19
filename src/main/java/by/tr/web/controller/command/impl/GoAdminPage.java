@@ -20,7 +20,6 @@ import java.util.Map;
  */
 public class GoAdminPage implements Command {
     private static final Logger logger = LogManager.getLogger(GoAdminPage.class);
-    private static final String TYPES_ATTRIBUTE = "appliance_types";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

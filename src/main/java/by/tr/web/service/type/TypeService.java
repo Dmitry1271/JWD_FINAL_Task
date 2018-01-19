@@ -11,7 +11,7 @@ import java.util.List;
 public interface TypeService {
     List<String> getAllTypes(String language) throws TypeServiceException, InvalidTypeException;
 
-    void addAllTypesToAppliance(List<String> typeNames, int applianceId) throws TypeServiceException;
+    void addAllTypesToAppliance(List<String> typeNames, Integer applianceId) throws TypeServiceException;
 
     void deleteTypeFromAppliance(Integer applianceId) throws TypeServiceException;
 }

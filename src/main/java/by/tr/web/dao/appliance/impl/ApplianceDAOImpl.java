@@ -2,11 +2,14 @@ package by.tr.web.dao.appliance.impl;
 
 import by.tr.web.dao.appliance.ApplianceDAO;
 import by.tr.web.dao.connect.DBConnector;
+import by.tr.web.dao.constant.DBFieldName;
 import by.tr.web.dao.constant.QueryConstants;
 import by.tr.web.dao.exception.ApplianceDAOException;
+import by.tr.web.entity.appliance.Appliance;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,6 +51,32 @@ public class ApplianceDAOImpl implements ApplianceDAO {
             statement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             throw new ApplianceDAOException("Delete appliance error", e);
+        }
+    }
+
+    @Override
+    public List<Appliance> getTopAppliances(String language) throws ApplianceDAOException {
+        try (Connection connection = DBConnector.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(QueryConstants.SQL_CALL_GET_TOP_NINE_APPLIANCES);
+            statement.setString(1, language);
+
+            ResultSet resultSet = statement.executeQuery();
+            List<Appliance> appliances = new ArrayList<>();
+            while (resultSet.next()) {
+                Appliance appliance = new Appliance();
+                appliance.setId(resultSet.getLong(DBFieldName.APPLIANCE_ID));
+                appliance.setPrice(resultSet.getBigDecimal(DBFieldName.PRICE));
+                appliance.setModel(resultSet.getString(DBFieldName.MODEL));
+                appliance.setNumberAvailable(resultSet.getInt(DBFieldName.NUMBER_AVAILABLE));
+                appliance.setImagePath(resultSet.getString(DBFieldName.IMAGE));
+                appliance.setDiscount(resultSet.getBigDecimal(DBFieldName.DISCOUNT));
+                appliance.setType(resultSet.getString(DBFieldName.TYPE_NAME));
+                appliance.setRating(resultSet.getDouble(DBFieldName.RATING));
+                appliances.add(appliance);
+            }
+            return appliances;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new ApplianceDAOException("Error in getting top appliances", e);
         }
     }
 }

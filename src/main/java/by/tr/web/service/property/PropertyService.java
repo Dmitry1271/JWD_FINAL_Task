@@ -9,5 +9,5 @@ import java.util.List;
  * Created by cplus on 14.01.2018.
  */
 public interface PropertyService {
-    void addProperties(int applianceId, List propertiesInfo, String typeName) throws PropertyServiceException, InvalidPropertyException;
+    void addProperties(Integer applianceId, List propertiesInfo, String typeName) throws PropertyServiceException, InvalidPropertyException;
 }

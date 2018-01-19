@@ -5,4 +5,5 @@ package by.tr.web.controller.constant;
  */
 public final class RedirectQueryConstant {
     public static final String HOME_PAGE_QUERY = "/FrontController?command=go_to_home_page";
+    public static final String ADMIN_PAGE_QUERY = "/FrontController?command=go_admin_page";
 }

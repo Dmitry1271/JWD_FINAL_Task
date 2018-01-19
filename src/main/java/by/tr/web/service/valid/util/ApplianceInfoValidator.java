@@ -18,9 +18,9 @@ public final class ApplianceInfoValidator {
 
     public static boolean isValidData(List info) {
         ValidatorDirector validatorDirector = new ValidatorDirector();
-        boolean price = validatorDirector.takeValidator(ValidatorName.NUMBER).isValidData(info.get(PRICE));
-        boolean numberAvailable = validatorDirector.takeValidator(ValidatorName.NUMBER).isValidData(info.get(NUMBER_AVAILABLE));
-        boolean discount = validatorDirector.takeValidator(ValidatorName.NUMBER).isValidData(info.get(DISCOUNT));
-        return price && numberAvailable && discount;
+        boolean validPrice = validatorDirector.takeValidator(ValidatorName.NUMBER).isValidData(info.get(PRICE));
+        boolean validNumberAvailable = validatorDirector.takeValidator(ValidatorName.NUMBER).isValidData(info.get(NUMBER_AVAILABLE));
+        boolean validDiscount = validatorDirector.takeValidator(ValidatorName.NUMBER).isValidData(info.get(DISCOUNT));
+        return validPrice && validNumberAvailable && validDiscount;
     }
 }

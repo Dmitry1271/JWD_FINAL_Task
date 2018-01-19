@@ -31,13 +31,15 @@ public class VacuumCleanerPropertyHandler implements PropertyHandler {
     @Override
     public boolean isValidProperties(List allProperties) {
         ValidatorDirector validatorDirector = new ValidatorDirector();
-        boolean power = validatorDirector.takeValidator(ValidatorName.NUMBER).isValidData(allProperties.get(POWER_EN)) &&
+        boolean validPower = validatorDirector.takeValidator(ValidatorName.NUMBER).isValidData(allProperties.get(POWER_EN)) &&
                 validatorDirector.takeValidator(ValidatorName.NUMBER).isValidData(allProperties.get(POWER_RU));
-        boolean color = allProperties.get(COLOR_EN) != null &&
-                allProperties.get(COLOR_RU) != null;
-        boolean cleaningType = allProperties.get(CLEANING_TYPE_EN) != null &&
-                allProperties.get(CLEANING_TYPE_RU) != null;
 
-        return power && color && cleaningType;
+        boolean validCleaningType = validatorDirector.takeValidator(ValidatorName.STRING).isValidData(allProperties.get(CLEANING_TYPE_EN)) &&
+                validatorDirector.takeValidator(ValidatorName.STRING).isValidData(allProperties.get(CLEANING_TYPE_RU));
+
+        boolean validColor = validatorDirector.takeValidator(ValidatorName.STRING).isValidData(allProperties.get(COLOR_EN)) &&
+                validatorDirector.takeValidator(ValidatorName.STRING).isValidData(allProperties.get(COLOR_RU));
+
+        return validPower && validColor && validCleaningType;
     }
 }

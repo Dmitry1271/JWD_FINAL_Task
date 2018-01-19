@@ -40,6 +40,8 @@ public final class QueryConstants {
     public static final String SQL_INSERT_TYPE_ID_AND_APPLIANCE_ID =
             "INSERT INTO type_has_appliance (`type_idtype`, `appliance_idappliance`) " +
                     "VALUES (?, ?);";
+    public static final String SQL_INSERT_DESCRIPTION = "INSERT INTO description (appliance_idappliance, language_lang, description_text) " +
+            "VALUES (?, ?, ?);";
 
     /**
      * UPDATE
@@ -52,11 +54,13 @@ public final class QueryConstants {
      */
     public static final String SQL_CALL_ADD_NEW_APPLIANCE = "CALL add_new_appliance(?, ?, ?, ?, ?)";
     public static final String SQL_CALL_ADD_PROPERTIES = "CALL add_properties(?, ?, ?)";
+    public static final String SQL_CALL_GET_TOP_NINE_APPLIANCES = "CALL get_top_nine_appliances(?);";
     /**
      * DELETE
      */
     public static final String SQL_DELETE_APPLIANCE = "DELETE FROM appliance WHERE idappliance = ?;";
     public static final String SQL_DELETE_TYPE_FROM_APPLIANCE = "DELETE FROM type_has_appliance WHERE appliance_idappliance = ?;";
+    public static final String SQL_DELETE_DESCRIPTION = "DELETE FROM description WHERE appliance_idappliance= ?;";
 
 
     private QueryConstants() {

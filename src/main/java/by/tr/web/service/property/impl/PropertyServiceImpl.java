@@ -15,18 +15,20 @@ import java.util.List;
  */
 public class PropertyServiceImpl implements PropertyService {
     @Override
-    public void addProperties(int applianceId, List propertiesInfo, String typeName) throws PropertyServiceException, InvalidPropertyException {
-        HandlerDirector handlerDirector = new HandlerDirector();
-        PropertyHandler propertyHandler = handlerDirector.takeHandler(typeName);
-        if (propertyHandler.isValidProperties(propertiesInfo)) {
-            DAOFactory instance = DAOFactory.getInstance();
-            try {
-                instance.getPropertyDAO().addProperties(applianceId, propertyHandler.selectNeedProperties(propertiesInfo));
-            } catch (PropertyDAOException e) {
-                throw new PropertyServiceException(e);
+    public void addProperties(Integer applianceId, List propertiesInfo, String typeName) throws PropertyServiceException, InvalidPropertyException {
+        if (applianceId != null) {
+            HandlerDirector handlerDirector = new HandlerDirector();
+            PropertyHandler propertyHandler = handlerDirector.takeHandler(typeName);
+            if (propertyHandler.isValidProperties(propertiesInfo)) {
+                DAOFactory instance = DAOFactory.getInstance();
+                try {
+                    instance.getPropertyDAO().addProperties(applianceId, propertyHandler.selectNeedProperties(propertiesInfo));
+                } catch (PropertyDAOException e) {
+                    throw new PropertyServiceException(e);
+                }
+            } else {
+                throw new InvalidPropertyException("Invalid property info");
             }
-        } else {
-            throw new InvalidPropertyException("Invalid property info");
         }
     }
 }

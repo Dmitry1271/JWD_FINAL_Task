@@ -29,6 +29,8 @@ public final class ParameterConstant {
     public static final String VELOCITY_RU = "velocity_ru";
     public static final String DEPTH_RU = "depth_ru";
     public static final String CLEANING_TYPE_RU = "cleaning_type_ru";
+    public static final String DESCRIPTION_EN = "description_en";
+    public static final String DESCRIPTION_RU = "description_ru";
 
     private ParameterConstant() {
     }

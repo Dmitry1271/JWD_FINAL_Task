@@ -2,9 +2,13 @@ package by.tr.web.service.appliance.impl;
 
 import by.tr.web.dao.DAOFactory;
 import by.tr.web.dao.exception.ApplianceDAOException;
+import by.tr.web.entity.Language;
+import by.tr.web.entity.appliance.Appliance;
 import by.tr.web.service.appliance.ApplianceService;
 import by.tr.web.service.exception.ApplianceServiceException;
 import by.tr.web.service.exception.valid.InvalidApplianceException;
+import by.tr.web.service.valid.ValidatorDirector;
+import by.tr.web.service.valid.ValidatorName;
 import by.tr.web.service.valid.util.ApplianceInfoValidator;
 
 import java.util.List;
@@ -35,6 +39,20 @@ public class ApplianceServiceImpl implements ApplianceService {
             } catch (ApplianceDAOException e) {
                 throw new ApplianceServiceException(e);
             }
+        }
+    }
+
+    @Override
+    public List<Appliance> getTopAppliances(String language) throws ApplianceServiceException {
+        DAOFactory instance = DAOFactory.getInstance();
+        try {
+            if (new ValidatorDirector().takeValidator(ValidatorName.LANGUAGE).isValidData(language)) {
+                return instance.getApplianceDAO().getTopAppliances(language);
+            } else {
+                return instance.getApplianceDAO().getTopAppliances(Language.DEFAULT.getName());
+            }
+        } catch (ApplianceDAOException e) {
+            throw new ApplianceServiceException(e);
         }
     }
 }

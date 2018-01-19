@@ -2,6 +2,8 @@ package by.tr.web.service;
 
 import by.tr.web.service.appliance.ApplianceService;
 import by.tr.web.service.appliance.impl.ApplianceServiceImpl;
+import by.tr.web.service.description.DescriptionService;
+import by.tr.web.service.description.impl.DescriptionServiceImpl;
 import by.tr.web.service.property.PropertyService;
 import by.tr.web.service.property.impl.PropertyServiceImpl;
 import by.tr.web.service.type.TypeService;
@@ -21,6 +23,10 @@ public class ServiceFactory {
     private TypeService typeService = new TypeServiceImpl();
     private ApplianceService applianceService = new ApplianceServiceImpl();
     private PropertyService propertyService = new PropertyServiceImpl();
+    private DescriptionService descriptionService = new DescriptionServiceImpl();
+
+    private ServiceFactory() {
+    }
 
     public static ServiceFactory getInstance() {
         return instance;
@@ -46,6 +52,7 @@ public class ServiceFactory {
         return propertyService;
     }
 
-    private ServiceFactory() {
+    public DescriptionService getDescriptionService() {
+        return descriptionService;
     }
 }

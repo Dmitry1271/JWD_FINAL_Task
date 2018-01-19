@@ -18,6 +18,8 @@ public class ValidatorDirector {
         validators.put(ValidatorName.PHONE_NUMBER, new PhoneNumberValidator());
         validators.put(ValidatorName.LANGUAGE, new LanguageValidator());
         validators.put(ValidatorName.NUMBER, new NumberValidator());
+        validators.put(ValidatorName.DESCRIPTION, new DescriptionValidator());
+        validators.put(ValidatorName.STRING, new StringValidator());
     }
 
     public DataValidator takeValidator(ValidatorName name) {

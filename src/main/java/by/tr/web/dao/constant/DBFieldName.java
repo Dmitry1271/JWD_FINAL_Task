@@ -10,5 +10,14 @@ public final class DBFieldName {
     public static final String USER_ID = "iduser";
     public static final String TYPE_NAME = "type_name";
     public static final String TYPE_ID = "idtype";
-    private DBFieldName(){}
+    public static final String APPLIANCE_ID = "idappliance";
+    public static final String PRICE = "price";
+    public static final String MODEL = "model";
+    public static final String NUMBER_AVAILABLE = "number_available";
+    public static final String IMAGE = "image";
+    public static final String DISCOUNT = "discount";
+    public static final String RATING = "rating";
+
+    private DBFieldName() {
+    }
 }
