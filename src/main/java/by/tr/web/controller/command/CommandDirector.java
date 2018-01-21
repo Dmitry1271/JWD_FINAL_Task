@@ -1,6 +1,7 @@
 package by.tr.web.controller.command;
 
 import by.tr.web.controller.command.impl.*;
+import by.tr.web.controller.command.impl.gotopage.*;
 import by.tr.web.util.Transformator;
 
 import java.util.HashMap;
@@ -21,6 +22,10 @@ public class CommandDirector {
         commands.put(CommandName.GO_SIGN_UP_PAGE, new GoSignUpPage());
         commands.put(CommandName.GO_ADMIN_PAGE, new GoAdminPage());
         commands.put(CommandName.ADD_NEW_APPLIANCE, new AddNewAppliance());
+        commands.put(CommandName.EXIT, new Exit());
+        commands.put(CommandName.GO_PROFILE_PAGE, new GoProfilePage());
+        commands.put(CommandName.CHANGE_PROFILE, new ChangeProfile());
+        commands.put(CommandName.CHANGE_PASSWORD, new ChangePassword());
     }
 
     public Command getCommand(String name) {

@@ -6,6 +6,13 @@ package by.tr.web.controller.constant;
 public final class ParameterConstant {
     public static final String COMMAND = "command";
     public static final String LANGUAGE = "language";
+    public static final String LOGIN = "login";
+    public static final String EMAIL = "email";
+    public static final String PASSWORD = "password";
+    public static final String PASSWORD_CONFIRMATION = "password_confirmation";
+    public static final String OLD_PASSWORD = "old_password";
+    public static final String PHONE_NUMBER = "phone_number";
+    public static final String ADDRESS = "address";
     public static final String PRICE = "price";
     public static final String MODEL = "model";
     public static final String NUMBER_AVAILABLE = "number_available";

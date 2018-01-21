@@ -2,7 +2,8 @@ package by.tr.web.controller.command.impl;
 
 import by.tr.web.controller.command.Command;
 import by.tr.web.controller.constant.AttributeConstant;
-import by.tr.web.controller.constant.PageConstant;
+import by.tr.web.controller.constant.ParameterConstant;
+import by.tr.web.controller.constant.RedirectQueryConstant;
 import by.tr.web.exception.IncorrectTokenException;
 import by.tr.web.util.TokenHelper;
 import by.tr.web.entity.Token;
@@ -24,8 +25,6 @@ import java.io.IOException;
  */
 public class SignIn implements Command {
     private static final Logger logger = LogManager.getLogger(SignIn.class);
-    private static final String LOGIN = "login";
-    private static final String PASSWORD = "password";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
@@ -34,7 +33,8 @@ public class SignIn implements Command {
 
         Token token;
         try {
-            token = userService.logination(request.getParameter(LOGIN), request.getParameter(PASSWORD));
+            token = userService.logination(request.getParameter(ParameterConstant.LOGIN),
+                    request.getParameter(ParameterConstant.PASSWORD));
 
             if (token != null) {
 
@@ -45,7 +45,7 @@ public class SignIn implements Command {
                 response.addCookie(new Cookie(AttributeConstant.ACCESS_TOKEN, token.getAccessToken()));
                 response.addCookie(new Cookie(AttributeConstant.REFRESH_TOKEN, token.getRefreshToken()));
 
-                response.sendRedirect(PageConstant.HOME_PAGE);
+                response.sendRedirect(RedirectQueryConstant.HOME_PAGE_QUERY);
 
             } else {
                 //some code here

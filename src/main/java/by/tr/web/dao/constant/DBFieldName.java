@@ -6,6 +6,10 @@ package by.tr.web.dao.constant;
 public final class DBFieldName {
     public static final String PASSWORD = "password";
     public static final String SALT = "salt";
+    public static final String LOGIN = "login";
+    public static final String ADDRESS = "address";
+    public static final String PHONE_NUMBER = "phone_number";
+    public static final String EMAIL = "email";
     public static final String IS_ADMIN = "is_admin";
     public static final String USER_ID = "iduser";
     public static final String TYPE_NAME = "type_name";

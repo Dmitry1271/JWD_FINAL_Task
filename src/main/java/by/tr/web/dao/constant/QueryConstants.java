@@ -31,6 +31,10 @@ public final class QueryConstants {
             "SELECT idtype " +
                     "FROM type " +
                     "WHERE LOWER(type_name) = LOWER(?);";
+    public static final String SQL_SELECT_USER_BY_ID =
+            "SELECT iduser, login, email, phone_number, address, password, salt " +
+                    "FROM user " +
+                    "WHERE iduser = ?";
     /**
      * INSERT
      */
@@ -47,8 +51,13 @@ public final class QueryConstants {
      * UPDATE
      */
     public static final String SQL_UPDATE_TOKEN =
-            "UPDATE token SET access_token=?, refresh_token=?, access_time=DATE_ADD(NOW(), INTERVAL 10 SECOND), " +
-                    "refresh_time=DATE_ADD(now(), INTERVAL 5 SECOND) WHERE user_iduser=?;";
+            "UPDATE token SET access_token=?, refresh_token=?, access_time=DATE_ADD(NOW(), INTERVAL 30 MINUTE), " +
+                    "refresh_time=DATE_ADD(now(), INTERVAL 1 YEAR) WHERE user_iduser=?;";
+    public static final String SQL_UPDATE_USER =
+            "UPDATE user SET `email`=?, `phone_number`=?, `address`=? " +
+                    "WHERE `iduser`=?;";
+    public static final String SQL_UPDATE_PASSWORD =
+            "UPDATE user SET password=?, salt=? WHERE iduser=?;";
     /**
      * CALL
      */

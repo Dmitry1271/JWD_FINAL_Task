@@ -21,6 +21,7 @@
 <fmt:message key="button.discounted" bundle="${language}" var="button_discounted"/>
 <fmt:message key="button.catalog" bundle="${language}" var="button_catalog"/>
 <fmt:message key="button.add_to_cart" bundle="${language}" var="button_add_to_cart"/>
+<fmt:message key="link.exit" bundle="${language}" var="link_exit"/>
 
 <!DOCTYPE html>
 <html>
@@ -39,9 +40,15 @@
         <div class="header__top">
             <div id="nav-menu">
                 <div class="nav-menu__header">
-                    <a href="/FrontController?command=go_sign_in_page">${link_sign_in}</a>
-                    <span>/</span>
-                    <a href="/FrontController?command=go_sign_up_page">${link_sign_up}</a>
+                    <c:if test="${sessionScope.role == 'GUEST'}">
+                        <a href="/FrontController?command=go_sign_in_page">${link_sign_in}</a>
+                        <span>/</span>
+                        <a href="/FrontController?command=go_sign_up_page">${link_sign_up}</a>
+                    </c:if>
+                    <c:if test="${sessionScope.role == 'CLIENT' || sessionScope.role == 'ADMIN'}">
+                        <a href="/FrontController?command=go_profile_page"><b>${requestScope.user.login}</b></a>
+                        <a href="/FrontController?command=exit">${link_exit}</a>
+                    </c:if>
                     <span class="cross"><a href="/FrontController?command=go_home_page">&#9747;</a></span>
                 </div>
                 <div class="nav-menu__body">
@@ -52,21 +59,28 @@
                         <li><a href="#"><img src="../../img/cart.png"><span>${link_cart}</span></a></li>
                         <li><a href="#"><img src="../../img/planet-icon.png"><span>${link_language}</span></a></li>
                         <li><a href="#"><img src="../../img/question-icon.png"><span>${link_help}</span></a></li>
-                        <%--если админ--%>
-                        <li><a href="/FrontController?command=go_admin_page"><img
-                                src="../../img/admin-icon.png"><span>${link_admin_settings}</span></a></li>
+                        <c:if test="${sessionScope.role == 'ADMIN'}">
+                            <li><a href="/FrontController?command=go_admin_page"><img
+                                    src="../../img/admin-icon.png"><span>${link_admin_settings}</span></a></li>
+                        </c:if>
                     </ul>
                 </div>
             </div>
             <div class="menu-wrap">
                 <nav class="menu">
                     <ul class="clearfix">
-                        <c:if test="${sessionScope.role == 'GUEST'}">
+                        <c:if test="${sessionScope.role == 'ADMIN'}">
                             <li><a href="/FrontController?command=go_admin_page">${link_admin_settings}</a></li>
                         </c:if>
                         <li><a href="#">${link_help}</a></li>
-                        <li><a href="/FrontController?command=go_sign_in_page">${link_sign_in}</a></li>
-                        <li><a href="/FrontController?command=go_sign_up_page">${link_sign_up}</a></li>
+                        <c:if test="${sessionScope.role == 'GUEST'}">
+                            <li><a href="/FrontController?command=go_sign_in_page">${link_sign_in}</a></li>
+                            <li><a href="/FrontController?command=go_sign_up_page">${link_sign_up}</a></li>
+                        </c:if>
+                        <c:if test="${sessionScope.role == 'CLIENT' || sessionScope.role == 'ADMIN'}">
+                            <li><a href="/FrontController?command=go_profile_page" style="color:#000;"><b>${requestScope.user.login}</b></a></li>
+                            <li><a href="/FrontController?command=exit">${link_exit}</a></li>
+                        </c:if>
                         <li>
                             <a href="#">${link_language}<span class="arrow">&#9660;</span></a>
                             <ul class="sub-menu">
@@ -167,24 +181,6 @@
         </div>
     </div>
 </footer>
-<script>
-    window.addEventListener('beforeunload', function() {
-        window.localStorage && window.localStorage.setItem('scroll', window.pageYOffset);
-        window.localStorage && window.localStorage.setItem('pathname', window.location.pathname);
-    });
-
-    window.addEventListener('onload', function() {
-        var href = window.localStorage && window.localStorage.getItem('pathname');
-        var scrollY = +window.localStorage && window.localStorage.getItem('scroll');
-        if (location.href === href) {
-            window.pageYOffset = scrollY;
-        } else {
-            window.localStorage && window.localStorage.removeItem('pathname');
-            window.localStorage && window.localStorage.removeItem('scroll');
-        }
-    });
-
-</script>
 <script type="text/javascript" src="../../script/index.js"></script>
 </body>
 </html>

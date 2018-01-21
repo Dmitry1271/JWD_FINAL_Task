@@ -54,7 +54,7 @@
 						<div id="password_error" class="error"></div>
 					</div>
 					<div class="input-block">
-						<input id="password_conf" type="password" name="confirm_password" placeholder="${input_reenter_password}">
+						<input id="password_conf" type="password" name="password_confirmation" placeholder="${input_reenter_password}">
 						<div id="password_conf_error" class="error"></div>
 					</div>
 					<div class="input-block">
@@ -63,7 +63,6 @@
 					</div>
 					<div class="input-block">
 						<input id="address" type="text" name="address" placeholder="${input_address}">
-						<div id="address_error" class="error"></div>
 					</div>
 					<button type="submut" id="register-submit-button">${button_sign_up}</button>
 				</form>

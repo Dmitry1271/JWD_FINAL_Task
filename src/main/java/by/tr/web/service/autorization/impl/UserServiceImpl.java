@@ -4,11 +4,14 @@ import by.tr.web.dao.DAOFactory;
 import by.tr.web.dao.authorization.UserDAO;
 import by.tr.web.dao.exception.UserDAOException;
 import by.tr.web.entity.Token;
+import by.tr.web.entity.User;
 import by.tr.web.service.autorization.UserService;
 import by.tr.web.service.exception.UserServiceException;
+import by.tr.web.service.exception.valid.InvalidUserInfoException;
 import by.tr.web.service.valid.ValidatorDirector;
 import by.tr.web.service.valid.ValidatorName;
 import by.tr.web.service.valid.util.RegisterInfoValidator;
+import by.tr.web.service.valid.util.UserInfoValidator;
 
 import java.util.List;
 
@@ -51,5 +54,44 @@ public class UserServiceImpl implements UserService {
             }
         }
         return false;
+    }
+
+    @Override
+    public User getUser(Integer userId) throws UserServiceException {
+        DAOFactory instance = DAOFactory.getInstance();
+        try {
+            return instance.getUserDAO().getUser(userId);
+        } catch (UserDAOException e) {
+            throw new UserServiceException(e);
+        }
+    }
+
+    @Override
+    public void updateUser(Integer userId, List userInfo) throws InvalidUserInfoException, UserDAOException {
+        if (UserInfoValidator.isValidData(userInfo)) {
+            DAOFactory instance = DAOFactory.getInstance();
+            instance.getUserDAO().updateUser(userId, userInfo);
+        } else {
+            throw new InvalidUserInfoException("Invalid user info");
+        }
+    }
+
+    @Override
+    public boolean updatePassword(Integer userId, String oldPassword, String newPassword, String confirmPassword) throws UserServiceException {
+        ValidatorDirector validatorDirector = new ValidatorDirector();
+        DAOFactory instance = DAOFactory.getInstance();
+        try {
+            if (oldPassword != null && validatorDirector.takeValidator(ValidatorName.PASSWORD).isValidData(newPassword) &&
+                    newPassword.equals(confirmPassword) && instance.getUserDAO().matchPassword(userId, oldPassword)) {
+
+                instance.getUserDAO().updatePassword(userId, newPassword);
+                return true;
+
+            } else {
+                return false;
+            }
+        } catch (UserDAOException e) {
+            throw new UserServiceException(e);
+        }
     }
 }

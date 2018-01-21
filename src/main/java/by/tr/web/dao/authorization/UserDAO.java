@@ -13,7 +13,16 @@ import java.util.List;
 public interface UserDAO {
 
     Token logination(String login, String password) throws UserDAOException;
+
     boolean existsLogin(String login) throws UserDAOException;
 
     boolean successRegistration(List registerInfo) throws UserDAOException;
+
+    User getUser(long userId) throws UserDAOException;
+
+    void updateUser(long userId, List userInfo) throws UserDAOException;
+
+    boolean matchPassword(long userId, String password) throws UserDAOException;
+
+    void updatePassword(long userId, String newPassword) throws UserDAOException;
 }

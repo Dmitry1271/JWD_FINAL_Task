@@ -10,6 +10,6 @@ public class PhoneNumberValidator implements DataValidator {
 
     @Override
     public boolean isValidData(Object value) {
-        return value != null && ((String) value).matches(REGEX);
+        return value == null || "".equals(value) || ((String) value).matches(REGEX);
     }
 }
