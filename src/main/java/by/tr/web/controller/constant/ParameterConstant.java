@@ -38,6 +38,8 @@ public final class ParameterConstant {
     public static final String CLEANING_TYPE_RU = "cleaning_type_ru";
     public static final String DESCRIPTION_EN = "description_en";
     public static final String DESCRIPTION_RU = "description_ru";
+    public static final String PAGE = "page";
+    public static final String TYPE_ID = "idtype";
 
     private ParameterConstant() {
     }

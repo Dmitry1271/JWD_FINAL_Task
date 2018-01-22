@@ -16,12 +16,12 @@ public class Appliance implements Serializable {
     private String imagePath;
     private BigDecimal discount;
     private String type;
-    private double rating;
+    private Double rating;
 
     public Appliance() {
     }
 
-    public Appliance(long id, String model, BigDecimal price, int numberAvailable, String imagePath, BigDecimal discount, String type, double rating) {
+    public Appliance(long id, String model, BigDecimal price, int numberAvailable, String imagePath, BigDecimal discount, String type, Double rating) {
         this.id = id;
         this.model = model;
         this.price = price;
@@ -88,11 +88,11 @@ public class Appliance implements Serializable {
         this.type = type;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
@@ -105,27 +105,24 @@ public class Appliance implements Serializable {
 
         if (id != appliance.id) return false;
         if (numberAvailable != appliance.numberAvailable) return false;
-        if (Double.compare(appliance.rating, rating) != 0) return false;
         if (model != null ? !model.equals(appliance.model) : appliance.model != null) return false;
         if (price != null ? !price.equals(appliance.price) : appliance.price != null) return false;
         if (imagePath != null ? !imagePath.equals(appliance.imagePath) : appliance.imagePath != null) return false;
         if (discount != null ? !discount.equals(appliance.discount) : appliance.discount != null) return false;
-        return type != null ? type.equals(appliance.type) : appliance.type == null;
+        if (type != null ? !type.equals(appliance.type) : appliance.type != null) return false;
+        return rating != null ? rating.equals(appliance.rating) : appliance.rating == null;
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = (int) (id ^ (id >>> 32));
+        int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (model != null ? model.hashCode() : 0);
         result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + numberAvailable;
         result = 31 * result + (imagePath != null ? imagePath.hashCode() : 0);
         result = 31 * result + (discount != null ? discount.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
-        temp = Double.doubleToLongBits(rating);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
         return result;
     }
 

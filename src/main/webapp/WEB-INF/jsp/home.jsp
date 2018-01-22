@@ -22,12 +22,16 @@
 <fmt:message key="button.catalog" bundle="${language}" var="button_catalog"/>
 <fmt:message key="button.add_to_cart" bundle="${language}" var="button_add_to_cart"/>
 <fmt:message key="link.exit" bundle="${language}" var="link_exit"/>
+<fmt:message key="link.previous" bundle="${language}" var="link_previous"/>
+<fmt:message key="link.next" bundle="${language}" var="link_next"/>
+<fmt:message key="p.price_name" bundle="${language}" var="p_price_name"/>
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
     <link rel="stylesheet" type="text/css" href="../../css/reset.css">
     <link rel="stylesheet" type="text/css" href="../../css/normalize.css">
@@ -49,11 +53,11 @@
                         <a href="/FrontController?command=go_profile_page"><b>${requestScope.user.login}</b></a>
                         <a href="/FrontController?command=exit">${link_exit}</a>
                     </c:if>
-                    <span class="cross"><a href="/FrontController?command=go_home_page">&#9747;</a></span>
+                    <span class="cross"><a href="/FrontController?command=go_home_page&page=${requestScope.page}">&#9747;</a></span>
                 </div>
                 <div class="nav-menu__body">
                     <ul>
-                        <li><a href="/FrontController?command=go_home_page"><img
+                        <li><a href="/FrontController?command=go_home_page&page=${requestScope.page}"><img
                                 src="../../img/home-icon.png"><span>${link_home}</span></a></li>
                         <li><a href="#"><img src="../../img/order-icon.png"><span>${link_orders}</span></a></li>
                         <li><a href="#"><img src="../../img/cart.png"><span>${link_cart}</span></a></li>
@@ -78,7 +82,8 @@
                             <li><a href="/FrontController?command=go_sign_up_page">${link_sign_up}</a></li>
                         </c:if>
                         <c:if test="${sessionScope.role == 'CLIENT' || sessionScope.role == 'ADMIN'}">
-                            <li><a href="/FrontController?command=go_profile_page" style="color:#000;"><b>${requestScope.user.login}</b></a></li>
+                            <li><a href="/FrontController?command=go_profile_page"
+                                   style="color:#000;"><b>${requestScope.user.login}</b></a></li>
                             <li><a href="/FrontController?command=exit">${link_exit}</a></li>
                         </c:if>
                         <li>
@@ -100,7 +105,8 @@
                     <div class="bar"></div>
                 </div>
             </button>
-            <a href="/FrontController?command=go_home_page"><img class="logo" src="../../img/logo.png"></a>
+            <a href="/FrontController?command=go_home_page&page=${requestScope.page}"><img class="logo"
+                                                                                           src="../../img/logo.png"></a>
             <div class="search">
                 <input type="search" name="search-input">
                 <button class="search-button">&#128269;</button>
@@ -127,7 +133,8 @@
             <ul class="menu">
                 <li class="menu__item main-item"><b>${h_category}</b></li>
                 <c:forEach var="type" items="${requestScope.appliance_types}">
-                    <li class="menu__item"><a href="#">${type}</a></li>
+                    <li class="menu__item"><a
+                            href="/FrontController?command=go_home_page&page=0&idtype=${type.id}">${type.name}</a></li>
                 </c:forEach>
             </ul>
         </div>
@@ -137,10 +144,15 @@
         <button id="catalog-button">${button_catalog}</button>
         <button id="dicount-goods-button">${button_discounted}</button>
         <div class="title">
-            <h5><b>${h_popular}</b></h5>
+            <c:if test="${requestScope.idtype == null}">
+                <h5><b>${h_popular}</b></h5>
+            </c:if>
+            <c:if test="${requestScope.idtype != null}">
+                <h5><b>${requestScope.appliances[0].type}</b></h5>
+            </c:if>
         </div>
         <div class="cards">
-            <c:forEach var="appliance" items="${requestScope.appliances}">
+            <c:forEach var="appliance" end="5" items="${requestScope.appliances}">
                 <div class="card">
                     <div class="card__container">
                         <div class="card__img">
@@ -149,18 +161,20 @@
                         <div class="card__info">
                             <a href=""><h3>${appliance.type}</h3></a>
                             <a href=""><h3>${appliance.model}</h3></a>
-                            <div class="rating">
-                                <div class="star <c:if test="${appliance.rating >= 0.5}">star-blue</c:if>"></div>
-                                <div class="star <c:if test="${appliance.rating >= 1.5}">star-blue</c:if>"></div>
-                                <div class="star <c:if test="${appliance.rating >= 2.5}">star-blue</c:if>"></div>
-                                <div class="star <c:if test="${appliance.rating >= 3.5}">star-blue</c:if>"></div>
-                                <div class="star <c:if test="${appliance.rating >= 4.5}">star-blue</c:if>"></div>
-                            </div>
+                            <c:if test="${appliance.rating != null}">
+                                <div class="rating">
+                                    <div class="star <c:if test="${appliance.rating >= 0.5}">star-blue</c:if>"></div>
+                                    <div class="star <c:if test="${appliance.rating >= 1.5}">star-blue</c:if>"></div>
+                                    <div class="star <c:if test="${appliance.rating >= 2.5}">star-blue</c:if>"></div>
+                                    <div class="star <c:if test="${appliance.rating >= 3.5}">star-blue</c:if>"></div>
+                                    <div class="star <c:if test="${appliance.rating >= 4.5}">star-blue</c:if>"></div>
+                                </div>
+                            </c:if>
                             <div class="info__price">
-                                <p class="price <c:if test="${appliance.discount < 0.009}" >discounted-price</c:if>">${appliance.price}</p>
+                                <p class="price <c:if test="${appliance.discount < 0.009}" >discounted-price</c:if>">${appliance.price} ${p_price_name}</p>
                                 <c:if test="${appliance.discount > 0}">
                                     <div class="price__line"></div>
-                                    <p class="discounted-price">${appliance.price - appliance.price * appliance.discount}</p>
+                                    <p class="discounted-price">${appliance.price - appliance.price * appliance.discount} ${p_price_name}</p>
                                 </c:if>
                             </div>
                             <button class="cart-button"><b>${button_add_to_cart}</b></button>
@@ -168,6 +182,38 @@
                     </div>
                 </div>
             </c:forEach>
+        </div>
+    </div>
+    <div class="card-pagination">
+        <div class="card-pagination__container">
+            <c:if test="${requestScope.idtype ==null}">
+                <ul class="pagination pagination-lg" style="float:left">
+                    <li class="page-item <c:if test="${requestScope.page <= 0}">disabled</c:if>">
+                        <a class="page-link"
+                           href="/FrontController?command=go_home_page&page=${requestScope.page - 1}">${link_previous}</a>
+                    </li>
+                </ul>
+                <ul class="pagination pagination-lg" style="float:right">
+                    <li class="page-item <c:if test="${appliances == null || requestScope.appliances.size() < 7}">disabled</c:if>">
+                        <a class="page-link"
+                           href="/FrontController?command=go_home_page&page=${requestScope.page + 1}">${link_next}</a>
+                    </li>
+                </ul>
+            </c:if>
+            <c:if test="${requestScope.idtype !=null}">
+                <ul class="pagination pagination-lg" style="float:left">
+                    <li class="page-item <c:if test="${requestScope.page <= 0}">disabled</c:if>">
+                        <a class="page-link"
+                           href="/FrontController?command=go_home_page&page=${requestScope.page - 1}&idtype=${requestScope.idtype}">${link_previous}</a>
+                    </li>
+                </ul>
+                <ul class="pagination pagination-lg" style="float:right">
+                    <li class="page-item <c:if test="${appliances == null || requestScope.appliances.size() < 7}">disabled</c:if>">
+                        <a class="page-link"
+                           href="/FrontController?command=go_home_page&page=${requestScope.page + 1}&idtype=${requestScope.idtype}">${link_next}</a>
+                    </li>
+                </ul>
+            </c:if>
         </div>
     </div>
 </div>
@@ -181,6 +227,8 @@
         </div>
     </div>
 </footer>
+<script type="text/javascript" src="../../script/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="../../script/bootstrap.js"></script>
 <script type="text/javascript" src="../../script/index.js"></script>
 </body>
 </html>

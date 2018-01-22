@@ -29,7 +29,7 @@ public class PropertyDAOImpl implements PropertyDAO {
             }
             connection.commit();
         } catch (SQLException | ClassNotFoundException e) {
-            throw new PropertyDAOException("Error in adding properties", e);
+            throw new PropertyDAOException("Error in adding properties: " + e);
         }
     }
 }

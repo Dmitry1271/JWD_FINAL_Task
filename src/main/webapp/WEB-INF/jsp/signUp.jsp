@@ -32,7 +32,7 @@
 <body>
 	<header>
 		<div class="header__bottom">
-			<a href="/FrontController?command=go_home_page"><img class="logo" src="../../img/logo.png"></a>
+			<a href="/FrontController?command=go_home_page&page=0"><img class="logo" src="../../img/logo.png"></a>
 		</div>
 	</header>
 	<div class="wrapper">

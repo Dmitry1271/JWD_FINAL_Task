@@ -18,7 +18,7 @@ public class Microwave extends Appliance {
     }
 
     public Microwave(long id, String model, BigDecimal price, int numberAvailable, String imagePath, BigDecimal discount,
-                     String color, int power, double height, double width, double depth, String type, double rating) {
+                     String color, int power, double height, double width, double depth, String type, Double rating) {
         super(id, model, price, numberAvailable, imagePath, discount, type, rating);
         this.color = color;
         this.power = power;

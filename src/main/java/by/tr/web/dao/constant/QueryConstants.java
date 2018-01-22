@@ -24,7 +24,7 @@ public final class QueryConstants {
                     "FROM token " +
                     "WHERE refresh_token = ? AND refresh_time > NOW();";
     public static final String SQL_SELECT_ALL_TYPES_BY_LANGUAGE =
-            "SELECT type_name " +
+            "SELECT idtype, type_name " +
                     "FROM type " +
                     "WHERE language_type = ?;";
     public static final String SQL_SELECT_TYPE_ID_BY_NAME =
@@ -63,7 +63,8 @@ public final class QueryConstants {
      */
     public static final String SQL_CALL_ADD_NEW_APPLIANCE = "CALL add_new_appliance(?, ?, ?, ?, ?)";
     public static final String SQL_CALL_ADD_PROPERTIES = "CALL add_properties(?, ?, ?)";
-    public static final String SQL_CALL_GET_TOP_NINE_APPLIANCES = "CALL get_top_nine_appliances(?);";
+    public static final String SQL_CALL_GET_TOP_APPLIANCES = "CALL get_top_appliances(?, ?, ?);";
+    public static final String SQL_CALL_GET_APPLIANCES_BY_TYPE = "CALL get_appliances_by_type(?, ?, ?, ?);";
     /**
      * DELETE
      */

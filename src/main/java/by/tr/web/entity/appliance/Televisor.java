@@ -16,7 +16,7 @@ public class Televisor extends Appliance {
     }
 
     public Televisor(long id, String model, BigDecimal price, int numberAvailable, String imagePath, BigDecimal discount,
-                     double height, double width, String quality, String type, double rating) {
+                     double height, double width, String quality, String type, Double rating) {
         super(id, model, price, numberAvailable, imagePath, discount, type, rating);
         this.height = height;
         this.width = width;

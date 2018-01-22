@@ -35,7 +35,7 @@ public class FrontController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String commandName = request.getParameter(ParameterConstant.COMMAND);
 
-        if (CommandName.containsCommand(commandName)) {
+        if (commandName != null && CommandName.containsCommand(commandName)) {
             Command command = commandDirector.getCommand(commandName);
             try {
                 if (!commandName.equals(CommandName.CHANGE_LANGUAGE.toString())) {

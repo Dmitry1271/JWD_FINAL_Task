@@ -13,5 +13,7 @@ public interface ApplianceDAO {
 
     void deleteAppliance(int applianceId) throws ApplianceDAOException;
 
-    List<Appliance> getTopAppliances(String language) throws ApplianceDAOException;
+    List<Appliance> getTopAppliances(String language, int from, int n) throws ApplianceDAOException;
+
+    List<Appliance> getAppliancesByType(int typeId, int from, int n, String language) throws ApplianceDAOException;
 }

@@ -16,7 +16,7 @@ public class VacuumCleaner extends Appliance {
     }
 
     public VacuumCleaner(long id, String model, BigDecimal price, int numberAvailable, String imagePath, BigDecimal discount,
-                         String color, int power, String cleaningType, String type, double rating) {
+                         String color, int power, String cleaningType, String type, Double rating) {
         super(id, model, price, numberAvailable, imagePath, discount, type, rating);
         this.color = color;
         this.power = power;

@@ -4,6 +4,7 @@ import by.tr.web.dao.DAOFactory;
 import by.tr.web.dao.type.TypeDAO;
 import by.tr.web.dao.exception.TypeDAOException;
 import by.tr.web.entity.Language;
+import by.tr.web.entity.Type;
 import by.tr.web.service.exception.valid.InvalidPropertyException;
 import by.tr.web.service.exception.valid.InvalidTypeException;
 import by.tr.web.service.type.TypeService;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class TypeServiceImpl implements TypeService {
     @Override
-    public List<String> getAllTypes(String language) throws TypeServiceException, InvalidTypeException {
+    public List<Type> getAllTypes(String language) throws TypeServiceException, InvalidTypeException {
         DAOFactory instance = DAOFactory.getInstance();
         TypeDAO typeDAO = instance.getTypeDAO();
         try {

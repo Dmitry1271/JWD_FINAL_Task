@@ -17,7 +17,7 @@ public class Fridge extends Appliance{
     }
 
     public Fridge(long id, String model, BigDecimal price, int numberAvailable, String imagePath, BigDecimal discount,
-                  String color, double width, double height, double depth, String type, double rating) {
+                  String color, double width, double height, double depth, String type, Double rating) {
         super(id, model, price, numberAvailable, imagePath, discount, type, rating);
         this.color = color;
         this.width = width;

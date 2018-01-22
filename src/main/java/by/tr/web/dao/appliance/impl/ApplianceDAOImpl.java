@@ -39,7 +39,7 @@ public class ApplianceDAOImpl implements ApplianceDAO {
 
 
         } catch (SQLException | ClassNotFoundException e) {
-            throw new ApplianceDAOException("Error in adding appliance ", e);
+            throw new ApplianceDAOException("Error in adding appliance: " + e);
         }
     }
 
@@ -50,33 +50,58 @@ public class ApplianceDAOImpl implements ApplianceDAO {
             statement.setInt(1, applianceId);
             statement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
-            throw new ApplianceDAOException("Delete appliance error", e);
+            throw new ApplianceDAOException("Delete appliance error: " + e);
         }
     }
 
     @Override
-    public List<Appliance> getTopAppliances(String language) throws ApplianceDAOException {
+    public List<Appliance> getTopAppliances(String language, int from, int n) throws ApplianceDAOException {
         try (Connection connection = DBConnector.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(QueryConstants.SQL_CALL_GET_TOP_NINE_APPLIANCES);
+            PreparedStatement statement = connection.prepareStatement(QueryConstants.SQL_CALL_GET_TOP_APPLIANCES);
             statement.setString(1, language);
+            statement.setInt(2, from);
+            statement.setInt(3, n);
 
             ResultSet resultSet = statement.executeQuery();
             List<Appliance> appliances = new ArrayList<>();
             while (resultSet.next()) {
-                Appliance appliance = new Appliance();
-                appliance.setId(resultSet.getLong(DBFieldName.APPLIANCE_ID));
-                appliance.setPrice(resultSet.getBigDecimal(DBFieldName.PRICE));
-                appliance.setModel(resultSet.getString(DBFieldName.MODEL));
-                appliance.setNumberAvailable(resultSet.getInt(DBFieldName.NUMBER_AVAILABLE));
-                appliance.setImagePath(resultSet.getString(DBFieldName.IMAGE));
-                appliance.setDiscount(resultSet.getBigDecimal(DBFieldName.DISCOUNT));
-                appliance.setType(resultSet.getString(DBFieldName.TYPE_NAME));
-                appliance.setRating(resultSet.getDouble(DBFieldName.RATING));
-                appliances.add(appliance);
+                appliances.add(getApplianceFromResultSet(resultSet));
             }
             return appliances;
         } catch (SQLException | ClassNotFoundException e) {
-            throw new ApplianceDAOException("Error in getting top appliances", e);
+            throw new ApplianceDAOException("Error in getting top appliances: " + e);
         }
+    }
+
+    @Override
+    public List<Appliance> getAppliancesByType(int typeId, int from, int n, String language) throws ApplianceDAOException {
+        try (Connection connection = DBConnector.getConnection()) {
+            CallableStatement statement = connection.prepareCall(QueryConstants.SQL_CALL_GET_APPLIANCES_BY_TYPE);
+            statement.setInt(1, typeId);
+            statement.setInt(2, from);
+            statement.setInt(3, n);
+            statement.setString(4, language);
+            ResultSet resultSet = statement.executeQuery();
+            List<Appliance> appliances = new ArrayList<>();
+            while (resultSet.next()) {
+                appliances.add(getApplianceFromResultSet(resultSet));
+            }
+            return appliances;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new ApplianceDAOException("Error in getting appliances by type: " + e);
+        }
+    }
+
+    private Appliance getApplianceFromResultSet(ResultSet resultSet) throws SQLException {
+        Appliance appliance = new Appliance();
+        appliance.setId(resultSet.getLong(DBFieldName.APPLIANCE_ID));
+        appliance.setPrice(resultSet.getBigDecimal(DBFieldName.PRICE));
+        appliance.setModel(resultSet.getString(DBFieldName.MODEL));
+        appliance.setNumberAvailable(resultSet.getInt(DBFieldName.NUMBER_AVAILABLE));
+        appliance.setImagePath(resultSet.getString(DBFieldName.IMAGE));
+        appliance.setDiscount(resultSet.getBigDecimal(DBFieldName.DISCOUNT));
+        appliance.setType(resultSet.getString(DBFieldName.TYPE_NAME));
+        appliance.setRating(resultSet.getDouble(DBFieldName.RATING));
+        return appliance;
     }
 }

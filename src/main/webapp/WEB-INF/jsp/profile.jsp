@@ -44,7 +44,7 @@
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/FrontController?command=go_home_page"><img class="logo" src="../../img/logo.png"></a>
+        <a class="navbar-brand" href="/FrontController?command=go_home_page&page=0"><img class="logo" src="../../img/logo.png"></a>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">

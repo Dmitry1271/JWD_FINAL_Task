@@ -28,7 +28,7 @@ public class DescriptionDAOImpl implements DescriptionDAO {
             }
             connection.commit();
         } catch (SQLException | ClassNotFoundException e) {
-            throw new DescriptionDAOException("Error in adding description", e);
+            throw new DescriptionDAOException("Error in adding description: " + e);
         }
     }
 
@@ -39,7 +39,7 @@ public class DescriptionDAOImpl implements DescriptionDAO {
             statement.setInt(1, applianceId);
             statement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
-            throw new DescriptionDAOException("Error in deleting description", e);
+            throw new DescriptionDAOException("Error in deleting description: " + e);
         }
     }
 }

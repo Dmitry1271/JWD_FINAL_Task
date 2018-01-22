@@ -14,5 +14,7 @@ public interface ApplianceService {
 
     void deleteAppliance(Integer applianceId) throws ApplianceServiceException;
 
-    List<Appliance> getTopAppliances(String language) throws ApplianceServiceException;
+    List<Appliance> getTopAppliances(String language, Object page) throws ApplianceServiceException, InvalidApplianceException;
+
+    List<Appliance> getAppliancesByType(Object typeId, Object page, String language) throws InvalidApplianceException, ApplianceServiceException;
 }

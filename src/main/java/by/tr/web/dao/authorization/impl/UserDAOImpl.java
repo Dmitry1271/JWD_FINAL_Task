@@ -59,7 +59,7 @@ public class UserDAOImpl implements UserDAO {
             }
 
         } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException e) {
-            throw new UserDAOException("Error in logination", e);
+            throw new UserDAOException("Error in logination: " + e);
         }
         return null;
     }
@@ -73,7 +73,7 @@ public class UserDAOImpl implements UserDAO {
             return result.next();
 
         } catch (SQLException | ClassNotFoundException e) {
-            throw new UserDAOException("Error in finding user login", e);
+            throw new UserDAOException("Error in finding user login: " + e);
         }
     }
 
@@ -97,7 +97,7 @@ public class UserDAOImpl implements UserDAO {
             return statement.executeUpdate() != 0;
 
         } catch (SQLException | NoSuchAlgorithmException | ClassNotFoundException e) {
-            throw new UserDAOException("Error in Registration", e);
+            throw new UserDAOException("Error in Registration: " + e);
         }
     }
 
@@ -116,7 +116,7 @@ public class UserDAOImpl implements UserDAO {
             user.setPhoneNumber(resultSet.getString(DBFieldName.PHONE_NUMBER));
             return user;
         } catch (SQLException | ClassNotFoundException e) {
-            throw new UserDAOException("Error in getting user", e);
+            throw new UserDAOException("Error in getting user: " + e);
         }
     }
 
@@ -130,7 +130,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setLong(4, userId);
             statement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
-            throw new UserDAOException("Error in updating user", e);
+            throw new UserDAOException("Error in updating user: " + e);
         }
     }
 
@@ -147,7 +147,7 @@ public class UserDAOImpl implements UserDAO {
                 return false;
             }
         } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException e) {
-            throw new UserDAOException("Error in matching passwords", e);
+            throw new UserDAOException("Error in matching passwords: " + e);
         }
     }
 
@@ -161,7 +161,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setLong(3, userId);
             statement.executeUpdate();
         } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException e) {
-            throw new UserDAOException("Error in updating password", e);
+            throw new UserDAOException("Error in updating password: " + e);
         }
     }
 }

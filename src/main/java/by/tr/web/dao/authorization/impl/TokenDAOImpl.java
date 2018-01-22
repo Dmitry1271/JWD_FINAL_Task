@@ -33,7 +33,7 @@ public class TokenDAOImpl implements TokenDAO {
         try {
             return TokenHelper.updateToken(TokenHelper.parseId(token), TokenHelper.parseRole(token));
         } catch (SQLException | ClassNotFoundException | IncorrectTokenException e) {
-            throw new TokenDAOException("Renovation token error", e);
+            throw new TokenDAOException("Renovation token error: " + e);
         }
     }
 
@@ -44,7 +44,7 @@ public class TokenDAOImpl implements TokenDAO {
             ResultSet result = statement.executeQuery();
             return result.next();
         } catch (SQLException | ClassNotFoundException e) {
-            throw new TokenDAOException("Check token error", e);
+            throw new TokenDAOException("Check token error: " + e);
         }
     }
 }

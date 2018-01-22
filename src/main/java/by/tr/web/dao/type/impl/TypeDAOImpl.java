@@ -5,6 +5,7 @@ import by.tr.web.dao.connect.DBConnector;
 import by.tr.web.dao.constant.DBFieldName;
 import by.tr.web.dao.constant.QueryConstants;
 import by.tr.web.dao.exception.TypeDAOException;
+import by.tr.web.entity.Type;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,14 +18,17 @@ import java.util.Map;
  */
 public class TypeDAOImpl implements TypeDAO {
     @Override
-    public List<String> getAllTypes(String language) throws TypeDAOException {
+    public List<Type> getAllTypes(String language) throws TypeDAOException {
         try (Connection connection = DBConnector.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(QueryConstants.SQL_SELECT_ALL_TYPES_BY_LANGUAGE);
             statement.setString(1, language);
             ResultSet resultSet = statement.executeQuery();
-            List<String> types = new ArrayList<>();
+            List<Type> types = new ArrayList<>();
             while (resultSet.next()) {
-                types.add(resultSet.getString(DBFieldName.TYPE_NAME));
+                Type type = new Type();
+                type.setId(resultSet.getInt(DBFieldName.TYPE_ID));
+                type.setName(resultSet.getString(DBFieldName.TYPE_NAME));
+                types.add(type);
             }
             return types;
         } catch (SQLException | ClassNotFoundException e) {
@@ -42,7 +46,7 @@ public class TypeDAOImpl implements TypeDAO {
             resultSet.next();
             return resultSet.getInt(DBFieldName.TYPE_ID);
         } catch (SQLException | ClassNotFoundException e) {
-            throw new TypeDAOException("Error in getting id", e);
+            throw new TypeDAOException("Error in getting id: " + e);
         }
     }
 
@@ -58,7 +62,7 @@ public class TypeDAOImpl implements TypeDAO {
             }
             connection.commit();
         } catch (SQLException | ClassNotFoundException e) {
-            throw new TypeDAOException("Error in adding type to appliance", e);
+            throw new TypeDAOException("Error in adding type to appliance: " + e);
         }
     }
 
@@ -69,7 +73,7 @@ public class TypeDAOImpl implements TypeDAO {
             statement.setInt(1, applianceId);
             statement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
-            throw new TypeDAOException("Error in deleting type from appliance", e);
+            throw new TypeDAOException("Error in deleting type from appliance: " + e);
         }
     }
 }
